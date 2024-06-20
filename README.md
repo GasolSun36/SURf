@@ -80,7 +80,7 @@ for i in $(seq 0 `expr $total_chunks - 1`)
     echo "Running on chunk $i ..."
     log_file="SURf/logs/initial/initial_${i}.log"
     nohup srun -p MoE -n1 -N1 --gres=gpu:1 --quotatype=reserved python initial/generate_initial_data.py \
-    --model-path liuhaotian/llava-v1.5-7b \
+    --model-path llava-v1.5-7b \
     --image-folder database/data \
     --question-file data/data-665k.json \
     --answers-file output/initial/data_${i}.jsonl \
@@ -117,7 +117,7 @@ for i in $(seq 0 `expr $total_chunks - 1`)
     echo "Running on chunk $i ..."
     log_file="SURf/logs/initial/context_${i}.log"
     nohup srun -p MoE -n1 -N1 --gres=gpu:1 --quotatype=reserved python initial/generate_context_data.py \
-    --model-path liuhaotian/llava-v1.5-7b \
+    --model-path llava-v1.5-7b \
     --image-folder database/data \
     --question-file initial/initial_datas.json \
     --answers-file output/initial/reanswer_data_${i}.jsonl \
@@ -149,7 +149,13 @@ python initial/tool_evaluate.py \
 
 ### Data Filtering
 
-We first need to remove all data that only has positive and negative samples, and then select the positive and negative samples with the largest retrieval scores from all the data as the samples we will eventually train:
+We first need to remove all data that only has positive and negative samples, and then select the positive and negative samples with the largest retrieval scores from all the data as our final training samples:
+
+```bash
+python initial/data_filter.py \
+    --input-file output/training_data.jsonl \
+    --output-file output/training_datas.jsonl
+```
 
 
 The final data will look like this:
@@ -188,7 +194,7 @@ After get the json data, you can use the following command in `training.sh`:
 ```bash
 torchrun --nnodes 1 --nproc_per_node 8 llava/train/train_mem.py \
     --deepspeed config/zero3.json \
-    --model_name_or_path liuhaotian/llava-v1.5-7b \
+    --model_name_or_path llava-v1.5-7b \
     --version retrieval \
     --data_path data/training_datas.json \
     --image_folder database/data \

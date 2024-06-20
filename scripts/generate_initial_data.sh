@@ -7,7 +7,7 @@ for i in $(seq 0 `expr $total_chunks - 1`)
     echo "Running on chunk $i ..."
     log_file="logs/initial/initial_${i}.log"
     nohup srun -p MoE -n1 -N1 --gres=gpu:1 --quotatype=reserved python initial/generate_initial_data.py \
-    --model-path liuhaotian/llava-v1.5-7b \
+    --model-path llava-v1.5-7b \
     --image-folder database/data \
     --question-file data/data-665k.json \
     --answers-file output/initial/data_${i}.jsonl \
