@@ -10,13 +10,32 @@
 [![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/release/python-3100/)
 
-This is a official repository for SURf, which proposes a self-refinement framework designed to teach LVLMs to **S**electively **U**tilize **R**etrieved In**f**ormation (SURf).
+This is a official repository for paper [SURf](https://arxiv.org/abs/2409.14083#:~:text=Large%20Vision-Language%20Models%20(LVLMs)%20have%20become%20pivotal%20at), which proposes a self-refinement framework designed to teach LVLMs to **S**electively **U**tilize **R**etrieved In**f**ormation (SURf).
+
+## How to cite
+
+If you extend or use this work, please cite the paper:
+
+```
+@misc{sun2024surfteachinglargevisionlanguage,
+      title={SURf: Teaching Large Vision-Language Models to Selectively Utilize Retrieved Information}, 
+      author={Jiashuo Sun and Jihai Zhang and Yucheng Zhou and Zhaochen Su and Xiaoye Qu and Yu Cheng},
+      year={2024},
+      eprint={2409.14083},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2409.14083}, 
+}
+```
+
 
 ## Introduction
 
 Pipeline of SURf:
 
 ![image](https://img.picui.cn/free/2024/06/17/666ff36e837ee.png)
+
+
 
 
 ## How to Run SURf
