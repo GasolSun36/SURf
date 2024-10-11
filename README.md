@@ -6,11 +6,14 @@
 <img src="assets/surf.png" alt="SURf" style="width: 10%; vertical-align: middle;"> SURf: Teaching Large Vision-Language Models to Selectively Utilize Retrieved Information
 </p>
 
-
+[![arXiv](https://img.shields.io/badge/Arxiv-2406.07476-AD1C18.svg?logo=arXiv)](https://arxiv.org/abs/2409.14083) <br>
 [![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/release/python-3100/)
 
-This is a official repository for paper [SURf](https://arxiv.org/abs/2409.14083#:~:text=Large%20Vision-Language%20Models%20(LVLMs)%20have%20become%20pivotal%20at), which proposes a self-refinement framework designed to teach LVLMs to **S**electively **U**tilize **R**etrieved In**f**ormation (SURf).
+This is a official repository for paper [SURf](https://arxiv.org/abs/2409.14083), which proposes a self-refinement framework designed to teach LVLMs to **S**electively **U**tilize **R**etrieved In**f**ormation (SURf).
+
+## News!
+Our paper is accepted by EMNLP 2024 at main conference! 🥳🥳🥳
 
 ## How to cite
 
@@ -33,7 +36,7 @@ If you extend or use this work, please cite the paper:
 
 Pipeline of SURf:
 
-![image](https://img.picui.cn/free/2024/06/17/666ff36e837ee.png)
+![image](https://github.com/GasolSun36/SURf/blob/main/assets/pipeline.png)
 
 
 
@@ -94,7 +97,7 @@ First, we prompt the frozen parameter LVLMs (llava-1.5-7B is used here) to initi
 
 ```bash
 total_chunks=50
-for i in $(seq 0 `expr $total_chunks - 1`)
+for i in (seq 0 `expr (seq 0 `expr total_chunks - 1`)
     do
     echo "Running on chunk $i ..."
     log_file="SURf/logs/initial/initial_${i}.log"
@@ -114,9 +117,9 @@ We strongly recommend using multi-card batch inference because the amount of dat
 ```bash
 # execute after generating the initial datas
 output_file = “output/initial_datas.jsonl”
-for chunk_idx in $(seq 0 $(($num_chunks - 1)))
+for chunk_idx in (seq 0 (seq 0 (($num_chunks - 1)))
 do
-    cat output/initial/data_${chunk_idx}.jsonl >> "$output_file"
+    cat output/initial/data_{chunk_idx}.jsonl >> "{chunk_idx}.jsonl >> "output_file"
 done
 ```
 
@@ -131,7 +134,7 @@ After obtaining the single-round data above, we can try to introduce the retriev
 
 ```bash
 total_chunks=50
-for i in $(seq 0 `expr $total_chunks - 1`)
+for i in (seq0‘expr(seq 0 `expr total_chunks - 1`)
     do
     echo "Running on chunk $i ..."
     log_file="SURf/logs/initial/context_${i}.log"
@@ -152,9 +155,9 @@ Same as above, we strongly recommend using multi-card batch inference because th
 ```bash
 # execute after generating the initial datas
 output_file = “output/context_datas.jsonl”
-for chunk_idx in $(seq 0 $(($num_chunks - 1)))
+for chunk_idx in (seq0(seq 0 (($num_chunks - 1)))
 do
-    cat output/initial/reanswer_data_${chunk_idx}.jsonl >> "$output_file"
+    cat output/initial/reanswer_data_{chunk_idx}.jsonl >> "{chunk_idx}.jsonl >> "output_file"
 done
 ```
 
@@ -279,7 +282,7 @@ python eval/eval_pope.py \
 ## Experiments
 
 The following figure shows our main experiment：
-![image](https://img.picui.cn/free/2024/06/17/666ff36d84360.png)
+![image](https://github.com/GasolSun36/SURf/blob/main/assets/experiment.png)
 
 
 
